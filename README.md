@@ -35,68 +35,45 @@ Copy code
 ## Setup Instructions
 
 ### 1. Launch EC2 Instance
-- Amazon Linux 2 or similar
+- Amazon Linux 2 
 - Install Apache:
-```bash
 sudo yum install httpd -y
 sudo systemctl start httpd
 sudo systemctl enable httpd
+
 2. Install AWS CLI
-bash
-Copy code
 sudo yum install awscli -y
+
 3. Configure AWS CLI
-bash
-Copy code
 aws configure
 Enter Access Key ID and Secret Access Key from IAM user
-
-Default region (e.g., us-east-1)
-
+Default region
 Default output format: json
 
 4. Create S3 Bucket
 Name must be globally unique
-
 Keep bucket private
 
 5. Create the Backup Script
-bash
-Copy code
 nano ~/log_backup.sh
-Paste the script below (replace <your-bucket-name> with your S3 bucket name):
 
-bash
-Copy code
 #!/bin/bash
 
 TIMESTAMP=$(date +%F)
 mkdir -p /home/ec2-user/log_backup/$TIMESTAMP
-
 cp /var/log/httpd/* /home/ec2-user/log_backup/$TIMESTAMP/
-
 echo "Backup completed for $TIMESTAMP"
-
 aws s3 cp /home/ec2-user/log_backup/$TIMESTAMP/ s3://<your-bucket-name>/$TIMESTAMP/ --recursive
 echo "Backup uploaded to S3 for $TIMESTAMP"
-Make it executable:
-
-bash
-Copy code
 chmod +x ~/log_backup.sh
-6. Test the Script
-bash
-Copy code
-./log_backup.sh
-7. Schedule Cron Job
-bash
-Copy code
-crontab -e
-Add the following line to run the script daily at midnight:
 
-bash
-Copy code
+6. Test the Script
+./log_backup.sh
+
+8. Schedule Cron Job
+crontab -e
 0 0 * * * /home/ec2-user/log_backup.sh
+   
 Demonstration
 Run the script manually to verify logs are backed up and uploaded to S3.
 
@@ -105,6 +82,5 @@ Check the S3 bucket → Timestamped folder contains access_log and error_log.
 Outcome
 Demonstrates full Linux + AWS automation workflow
 
-Ideal for portfolio or resume project to show practical sysadmin and cloud skills
 
 
