@@ -21,11 +21,11 @@ This project demonstrates Linux system administration and AWS integration. It au
 ## Folder Structure
 /home/ec2-user/
 │
-├── log_backup.sh # Bash script to backup logs and upload to S3
-└── log_backup/ # Directory where backups are stored
-└── 2025-11-20/ # Timestamped daily backup
-├── access_log
-└── error_log
+├── log_backup.sh          # Bash script to backup logs and upload to S3
+└── log_backup/            # Directory where backups are stored
+    └── 2025-11-20/        # Timestamped daily backup
+        ├── access_log
+        └── error_log
 
 
 ---
