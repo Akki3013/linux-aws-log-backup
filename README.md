@@ -61,12 +61,19 @@ nano ~/log_backup.sh
 #!/bin/bash
 
 TIMESTAMP=$(date +%F)
+
 mkdir -p /home/ec2-user/log_backup/$TIMESTAMP
+
 cp /var/log/httpd/* /home/ec2-user/log_backup/$TIMESTAMP/
+
 echo "Backup completed for $TIMESTAMP"
-aws s3 cp /home/ec2-user/log_backup/$TIMESTAMP/ s3://<your-bucket-name>/$TIMESTAMP/ --recursive
+
+aws s3 cp /home/ec2-user/log_backup/$TIMESTAMP/ s3://your-bucket-name/$TIMESTAMP/ --recursive
+
 echo "Backup uploaded to S3 for $TIMESTAMP"
+
 chmod +x ~/log_backup.sh
+
 
 6. Test the Script
 ./log_backup.sh
