@@ -27,8 +27,6 @@ This project demonstrates Linux system administration and AWS integration. It au
 ├── access_log
 └── error_log
 
-yaml
-Copy code
 
 ---
 
